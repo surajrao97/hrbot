@@ -13,7 +13,6 @@ const {
   CloudAdapter,
   ConfigurationServiceClientCredentialFactory,
   createBotFrameworkAuthenticationFromConfiguration,
-  MemoryStorage,
   ConversationState,
   UserState,
   MemoryStorage,
