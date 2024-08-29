@@ -39,7 +39,7 @@ class DocumentSubmissionDialog extends ComponentDialog {
   }
 
   async getDocList(step) {
-    if (step.result == false) {
+    if (step.result === false) {
       await step.context.sendActivity(
         "List of Documents:\n 1. Aadhaar card\n2. PAN card\n You can submit the documents via below URL:https://wipro.com"
       );
