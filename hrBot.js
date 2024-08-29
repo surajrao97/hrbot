@@ -96,6 +96,35 @@ class HRBOT extends ActivityHandler {
           await this.sendSuggestedActions(context);
         }
         break;
+      case "First Day Information":
+        console.log("Inside First day info");
+        await this.conversationData.set(context, { endDialog: false });
+        await context.sendActivity(
+          "Please arrive by 9:00 AM. Your first day will start with a brief orientation session."
+        );
+        await this.previousIntent.set(context, { intentName: null });
+        await this.sendSuggestedActions(context);
+        break;
+
+      case "Laptop and Equipment":
+        console.log("Inside Laptop and Equipment");
+        await this.conversationData.set(context, { endDialog: false });
+        await context.sendActivity(
+          "our laptop will be handed to you during the orientation on your first day."
+        );
+        await this.previousIntent.set(context, { intentName: null });
+        await this.sendSuggestedActions(context);
+        break;
+
+      case "Orientation Schedule":
+        console.log("Inside Orientation");
+        await this.conversationData.set(context, { endDialog: false });
+        await context.sendActivity(
+          "Here is your orientation schedule: [Link to Schedule]. You'll have sessions on company culture, team introductions, and tool training."
+        );
+        await this.previousIntent.set(context, { intentName: null });
+        await this.sendSuggestedActions(context);
+        break;
     }
   }
 }
