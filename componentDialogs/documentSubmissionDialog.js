@@ -50,6 +50,10 @@ class DocumentSubmissionDialog extends ComponentDialog {
       return await step.endDialog();
     }
   }
+
+  async isDialogComplete() {
+    return endDialog;
+  }
 }
 
 module.exports.DocumentSubmissionDialog = DocumentSubmissionDialog;
