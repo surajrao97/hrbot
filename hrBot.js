@@ -102,6 +102,7 @@ class HRBOT extends ActivityHandler {
         await context.sendActivity(
           "Please arrive by 9:00 AM. Your first day will start with a brief orientation session."
         );
+        await this.conversationData.set(context, { endDialog: true });
         await this.previousIntent.set(context, { intentName: null });
         await this.sendSuggestedActions(context);
         break;
@@ -112,6 +113,7 @@ class HRBOT extends ActivityHandler {
         await context.sendActivity(
           "our laptop will be handed to you during the orientation on your first day."
         );
+        await this.conversationData.set(context, { endDialog: true });
         await this.previousIntent.set(context, { intentName: null });
         await this.sendSuggestedActions(context);
         break;
@@ -122,6 +124,7 @@ class HRBOT extends ActivityHandler {
         await context.sendActivity(
           "Here is your orientation schedule: [Link to Schedule]. You'll have sessions on company culture, team introductions, and tool training."
         );
+        await this.conversationData.set(context, { endDialog: true });
         await this.previousIntent.set(context, { intentName: null });
         await this.sendSuggestedActions(context);
         break;
