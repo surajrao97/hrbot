@@ -8,7 +8,7 @@ var endDialog = "";
 
 class DocumentSubmissionDialog extends ComponentDialog {
   constructor(conversationState, userState) {
-    super();
+    super("documentSubmissionDialog");
     this.addDialog(new ConfirmPrompt(CONFIRM_PROMPT));
     this.addDialog(
       new WaterfallDialog(WATERFALL_DIALOG, [
