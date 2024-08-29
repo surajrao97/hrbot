@@ -16,6 +16,7 @@ class DocumentSubmissionDialog extends ComponentDialog {
         this.getDocList.bind(this),
       ])
     );
+    this.initialDialogId = WATERFALL_DIALOG;
   }
 
   async run(context, accessor) {
