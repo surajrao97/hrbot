@@ -24,6 +24,13 @@ class HRBOT extends ActivityHandler {
       await next();
     });
 
+    this.onDialog(async (context, next) => {
+      // Save any state changes. The load happened during the execution of the Dialog.
+      await this.conversationState.saveChanges(context, false);
+      await this.userState.saveChanges(context, false);
+      await next();
+    });
+
     this.onMembersAdded(async (context, next) => {
       await this.sendWelcomeMessage(context);
 

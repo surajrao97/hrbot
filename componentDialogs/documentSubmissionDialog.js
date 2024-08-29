@@ -47,7 +47,7 @@ class DocumentSubmissionDialog extends ComponentDialog {
       return await step.endDialog();
     } else {
       await step.context.sendActivity("Thank you for submitting documents.");
-      endDialod = true;
+      endDialog = true;
       return await step.endDialog();
     }
   }
