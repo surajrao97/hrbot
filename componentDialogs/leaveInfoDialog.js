@@ -65,15 +65,16 @@ class LeaveInfoDialog extends ComponentDialog {
         ["yes", "no"]
       );
     } else if (step.values.leaveaction === "Leave Balance") {
-      await step.beginDialog(WATERFALL_DIALOG2);
-      endDialog = true;
-      return step.endDialog();
+      return await step.beginDialog(WATERFALL_DIALOG2);
     } else return await step.next();
   }
 
   async applyLeave(step) {
     if (step.result === true) {
       return await step.prompt(DATETIME_PROMPT, "Enter date for PTO");
+    } else if (step.result === "Leave Balance") {
+      endDialog = true;
+      return step.endDialog();
     } else {
       await step.context.sendActivity("You chose not to apply leave");
       endDialog = true;
@@ -105,13 +106,13 @@ class LeaveInfoDialog extends ComponentDialog {
   async userInputForBalance(step) {
     if (step.result === true) {
       endDialog = true;
-      return await step.endDialog();
+      return await step.endDialog("Leave Balance");
     } else {
       await step.context.sendActivity(
         "We will look into the issue with balance."
       );
       endDialog = true;
-      return await step.endDialog();
+      return await step.endDialog("Leave Balance");
     }
   }
 
