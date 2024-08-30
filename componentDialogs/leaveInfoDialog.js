@@ -38,7 +38,8 @@ class LeaveInfoDialog extends ComponentDialog {
       ["Apply Leave", "Leave Balance", "Leave Status"],
       "Select one action."
     );
-    return await step.context.sendActivity(reply);
+    await step.context.sendActivity(reply);
+    return await step.next();
   }
 
   async getConfirmation(step) {
