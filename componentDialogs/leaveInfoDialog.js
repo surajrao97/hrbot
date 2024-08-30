@@ -30,6 +30,7 @@ class LeaveInfoDialog extends ComponentDialog {
       new WaterfallDialog(WATERFALL_DIALOG2, [
         this.leaveBalance.bind(this),
         this.confirmBalance.bind(this),
+        this.userInputForBalance.bind(this),
       ])
     );
     this.initialDialogId = WATERFALL_DIALOG;
