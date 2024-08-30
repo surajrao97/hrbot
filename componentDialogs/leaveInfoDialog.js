@@ -9,6 +9,7 @@ const { DialogSet, DialogTurnStatus } = require("botbuilder-dialogs");
 
 const CONFIRM_PROMPT = "CONFIRM_PROMPT";
 const WATERFALL_DIALOG = "WATERFALL_DIALOG";
+const WATERFALL_DIALOG2 = "WATERFALL_DIALOG2";
 const DATETIME_PROMPT = "DATETIME_PROMPT";
 var endDialog = "";
 
@@ -22,6 +23,13 @@ class LeaveInfoDialog extends ComponentDialog {
         this.firstStep.bind(this),
         this.getConfirmation.bind(this),
         this.applyLeave.bind(this),
+        this.leaveConfirmation.bind(this),
+      ])
+    );
+    this.addDialog(
+      new WaterfallDialog(WATERFALL_DIALOG2, [
+        this.leaveBalance.bind(this),
+        this.confirmBalance.bind(this),
       ])
     );
     this.initialDialogId = WATERFALL_DIALOG;
@@ -55,6 +63,8 @@ class LeaveInfoDialog extends ComponentDialog {
         "Are you sure you want to apply leave?",
         ["yes", "no"]
       );
+    } else if (step.values.leaveaction === "Leave Balance") {
+      step.beginDialog(WATERFALL_DIALOG2);
     } else return await step.next();
   }
 
@@ -64,6 +74,39 @@ class LeaveInfoDialog extends ComponentDialog {
     } else {
       await step.context.sendActivity("You chose not to apply leave");
       endDialog = true;
+      return await step.endDialog();
+    }
+  }
+
+  async leaveConfirmation(step) {
+    step.values.leavedate = step.result;
+    await step.context.sendActivity(
+      `PTO request sent for approval for date ${step.values.leavedate}`
+    );
+    endDialog = true;
+    return await step.endDialog();
+  }
+
+  async leaveBalance(step) {
+    await step.context.sendActivity(`Your remaining Leave balance is: 2`);
+    return await step.next();
+  }
+
+  async confirmBalance(step) {
+    return await step.prompt(CONFIRM_PROMPT, "Confirm your balance.", [
+      "yes",
+      "no",
+    ]);
+  }
+
+  async userInputForBalance(step) {
+    if (step.result === true) {
+      endDialog = true;
+      return await step.endDialog();
+    } else {
+      await step.context.sendActivity(
+        "We will look into the issue with balance."
+      );
       return await step.endDialog();
     }
   }
