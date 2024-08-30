@@ -21,6 +21,7 @@ class LeaveInfoDialog extends ComponentDialog {
       new WaterfallDialog(WATERFALL_DIALOG, [
         this.firstStep.bind(this),
         this.getConfirmation.bind(this),
+        this.applyLeave.bind(this),
       ])
     );
     this.initialDialogId = WATERFALL_DIALOG;
@@ -43,7 +44,6 @@ class LeaveInfoDialog extends ComponentDialog {
       "Select one action."
     );
     await step.context.sendActivity(reply);
-    //return await step.continueDialog();
     return Dialog.EndOfTurn;
   }
 
@@ -56,7 +56,16 @@ class LeaveInfoDialog extends ComponentDialog {
         ["yes", "no"]
       );
     } else return await step.next();
-    //return await step.continueDialog();
+  }
+
+  async applyLeave(step) {
+    if (step.result === true) {
+      return await step.prompt(DATETIME_PROMPT, "Enter date for PTO");
+    } else {
+      await step.context.sendActivity("You chose not to apply leave");
+      endDialog = true;
+      return await step.endDialog();
+    }
   }
 
   async isDialogComplete() {
