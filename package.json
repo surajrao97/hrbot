@@ -16,7 +16,9 @@
         "url": "https://github.com"
     },
     "dependencies": {
+        "@azure/storage-blob": "^12.24.0",
         "botbuilder": "~4.22.1",
+        "botbuilder-azure": "^4.23.0",
         "botbuilder-dialogs": "^4.23.0",
         "dotenv": "~8.2.0",
         "restify": "~11.1.0"

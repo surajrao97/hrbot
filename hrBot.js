@@ -2,6 +2,7 @@ const { ActivityHandler, MessageFactory } = require("botbuilder");
 const {
   DocumentSubmissionDialog,
 } = require("./componentDialogs/documentSubmissionDialog");
+const { LeaveInfoDialog } = require("./componentDialogs/leaveInfoDialog");
 
 class HRBOT extends ActivityHandler {
   constructor(conversationState, userState) {
@@ -10,6 +11,10 @@ class HRBOT extends ActivityHandler {
     this.userState = userState;
     this.dialogState = conversationState.createProperty("dialogState");
     this.documentSubmissionDialog = new DocumentSubmissionDialog(
+      this.conversationState,
+      this.userState
+    );
+    this.leaveInfoDialog = new LeaveInfoDialog(
       this.conversationState,
       this.userState
     );
@@ -57,8 +62,9 @@ class HRBOT extends ActivityHandler {
         "First Day Information",
         "Laptop and Equipment",
         "Orientation Schedule",
+        "Leave Info",
       ],
-      "Select any card to know more."
+      "Select the card to know more."
     );
     await context.sendActivity(reply);
   }
@@ -128,6 +134,11 @@ class HRBOT extends ActivityHandler {
         await this.previousIntent.set(context, { intentName: null });
         await this.sendSuggestedActions(context);
         break;
+
+      case "Leave Info":
+        console.log("Inside Leave Info");
+        await this.conversationData.set(context, { endDialog: false });
+        await this.leaveInfoDialog.run(context, this.dialogState);
     }
   }
 }
