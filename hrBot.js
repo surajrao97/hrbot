@@ -140,7 +140,7 @@ class HRBOT extends ActivityHandler {
         await this.conversationData.set(context, { endDialog: false });
         await this.leaveInfoDialog.run(context, this.dialogState);
         conversationData.endDialog =
-          await this.documentSubmissionDialog.isDialogComplete();
+          await this.leaveInfoDialog.isDialogComplete();
         if (conversationData.endDialog) {
           await this.previousIntent.set(context, {
             intentName: null,
