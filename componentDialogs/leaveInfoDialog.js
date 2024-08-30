@@ -8,7 +8,7 @@ const WATERFALL_DIALOG = "WATERFALL_DIALOG";
 const DATETIME_PROMPT = "DATETIME_PROMPT";
 var endDialog = "";
 
-class LeaveInfoDialog extends ComponentDialog() {
+class LeaveInfoDialog extends ComponentDialog {
   constructor(conversationState, userState) {
     super("leaveInfoDialog");
     this.addDialog(new ConfirmPrompt(CONFIRM_PROMPT));
