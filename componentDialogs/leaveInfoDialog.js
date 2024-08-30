@@ -1,5 +1,9 @@
 const { MessageFactory } = require("botbuilder");
-const { WaterfallDialog, ComponentDialog } = require("botbuilder-dialogs");
+const {
+  WaterfallDialog,
+  ComponentDialog,
+  Dialog,
+} = require("botbuilder-dialogs");
 const { ConfirmPrompt, DateTimePrompt } = require("botbuilder-dialogs");
 const { DialogSet, DialogTurnStatus } = require("botbuilder-dialogs");
 
@@ -39,7 +43,8 @@ class LeaveInfoDialog extends ComponentDialog {
       "Select one action."
     );
     await step.context.sendActivity(reply);
-    return await step.next();
+    //return await step.continueDialog();
+    return Dialog.EndOfTurn;
   }
 
   async getConfirmation(step) {
@@ -50,7 +55,8 @@ class LeaveInfoDialog extends ComponentDialog {
         "Are you sure you want to apply leave?",
         ["yes", "no"]
       );
-    } else return await step.continueDialog();
+    } else return await step.next();
+    //return await step.continueDialog();
   }
 
   async isDialogComplete() {
