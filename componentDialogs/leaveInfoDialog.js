@@ -65,7 +65,9 @@ class LeaveInfoDialog extends ComponentDialog {
         ["yes", "no"]
       );
     } else if (step.values.leaveaction === "Leave Balance") {
-      return await step.beginDialog(WATERFALL_DIALOG2);
+      await step.beginDialog(WATERFALL_DIALOG2);
+      endDialog = true;
+      return step.endDialog();
     } else return await step.next();
   }
 
